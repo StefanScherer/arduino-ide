@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 # the install script to provision the Ubuntu box with minimal desktop and tools
 $script = <<SCRIPT
 sudo apt-get update -y
-sudo apt-get install -y --no-install-recommends ubuntu-desktop
+sudo apt-get install -y --no-install-recommends ubuntu-desktop gnome-panel
 sudo apt-get install -y unity-lens-applications
 sudo apt-get install -y arduino arduino-core
 sudo adduser vagrant dialout
