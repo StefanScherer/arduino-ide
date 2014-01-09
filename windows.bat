@@ -14,6 +14,10 @@ set PATH=%PATH%;%ChocolateyInstall%\bin
 
 call cinst virtualbox
 call cinst vagrant
+set PATH=%PATH%;%ProgramFiles%\Oracle\VirtualBox
+set PATH=%PATH%;%SystemDrive%\hashicorp\vagrant\bin
 cd /D %USERPROFILE%\Documents
+mkdir arduino-ide
+cd arduino-ide
 @powershell -NoProfile -ExecutionPolicy unrestricted -Command "((new-object net.webclient).DownloadFile('https://raw.github.com/StefanScherer/arduino-ide/master/Vagrantfile', 'Vagrantfile'))"
 call vagrant up
