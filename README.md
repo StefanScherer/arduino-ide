@@ -20,7 +20,7 @@ The Arduino IDE will be installed into an Ubuntu 12.04 box. Just clone this repo
     vagrant up
 
 # License
-MIT
+MIT License
 
 # Author
 Stefan Scherer
