@@ -8,7 +8,7 @@ You will need [Vagrant](http://vagrantup.com) and [VirtualBox](http://virtualbox
 ## Preparing your Windows Host
 If you do not already have Vagrant and VirtualBox installed, you may use following script that will do this for you. I prefer [Chocolatey](http://chocolatey.org) to install all my software on Windows machines. Open a command shell or type **WindowsKey+R** and copy and paste following command
 
-    bitsadmin /transfer Host /download /priority normal https://github.com/StefanScherer/arduino-ide/install/windows.bat %Temp%\windows.bat && %Temp%\windows.bat
+    @powershell -NoProfile -ExecutionPolicy unrestricted -Command "((new-object net.webclient).DownloadFile('https://raw.github.com/StefanScherer/arduino-ide/install/windows.bat', '%Temp%\windows.bat'))" && %Temp%\windows.bat
 
 Enter the admin user and password when prompted in UAC dialogs. It will install the DotNet runtime 4 which is needed by Chocolatey, then VirtualBox and Vagrant and also curl to download further files from this repo.
 
