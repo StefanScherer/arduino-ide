@@ -1,24 +1,34 @@
-# -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
-
-# the install script to provision the Ubuntu box with minimal desktop and tools
 $script = <<SCRIPT
+# switch to German keyboard layout
+sudo sed -i 's/"us"/"de"/g' /etc/default/keyboard
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y console-common
+sudo install-keymap de
+
+# install Ubuntu desktop
 sudo apt-get update -y
 sudo apt-get install -y --no-install-recommends ubuntu-desktop gnome-panel
 sudo apt-get install -y unity-lens-applications
+vagrant gconftool -s /apps/gnome-terminal/profiles/Default/use_system_font -t bool false
+
+# install Chromium  browser
+sudo apt-get install -y chromium-browser
+
+# install Arduino IDE
 sudo apt-get install -y arduino arduino-core
 sudo adduser vagrant dialout
+
+# install development: 
 sudo apt-get install -y vim git
-# german keyboard
-gconftool-2 -s /apps/gnome-terminal/profiles/Default/use_system_font -t bool false
-gconftool-2 -s /desktop/gnome/peripherals/keyboard/kbd/layouts --type=list --list-type=string '[de]'
-sed -i 's/"us"/"de"/g' /etc/default/keyboard
-sudo init 5
+
+gsettings set com.canonical.Unity.Launcher favorites "['nautilus-home.desktop', 'ubuntu-software-center.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'chromium-browser.desktop', 'arduino.desktop']"
+# start desktop
 sudo service lightdm restart
 SCRIPT
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "precise64"
