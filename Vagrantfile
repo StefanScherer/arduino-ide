@@ -6,12 +6,16 @@ sudo sed -i 's/"us"/"de"/g' /etc/default/keyboard
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y console-common
 sudo install-keymap de
 
+# set timezone to German timezone
+echo "Europe/Berlin" | sudo tee /etc/timezone
+sudo dpkg-reconfigure -f noninteractive tzdata
+
 # install Ubuntu desktop
 sudo apt-get update -y
 sudo apt-get install -y --no-install-recommends ubuntu-desktop
 sudo apt-get install -y gnome-panel
 sudo apt-get install -y unity-lens-applications
-vagrant gconftool -s /apps/gnome-terminal/profiles/Default/use_system_font -t bool false
+gconftool -s /apps/gnome-terminal/profiles/Default/use_system_font -t bool false
 
 # install Chromium  browser
 sudo apt-get install -y chromium-browser
