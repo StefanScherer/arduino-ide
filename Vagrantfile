@@ -8,7 +8,8 @@ sudo install-keymap de
 
 # install Ubuntu desktop
 sudo apt-get update -y
-sudo apt-get install -y --no-install-recommends ubuntu-desktop gnome-panel
+sudo apt-get install -y --no-install-recommends ubuntu-desktop
+sudo apt-get install -y gnome-panel
 sudo apt-get install -y unity-lens-applications
 vagrant gconftool -s /apps/gnome-terminal/profiles/Default/use_system_font -t bool false
 
@@ -22,8 +23,11 @@ sudo adduser vagrant dialout
 # install development: 
 sudo apt-get install -y vim git
 
-gsettings set com.canonical.Unity.Launcher favorites "['nautilus-home.desktop', 'ubuntu-software-center.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'chromium-browser.desktop', 'arduino.desktop']"
 # start desktop
+echo "autologin-user=vagrant" | sudo tee -a /etc/lightdm/lightdm.conf
+sudo service lightdm restart
+sleep 15
+DISPLAY=:0.0 gsettings set com.canonical.Unity.Launcher favorites "['nautilus-home.desktop', 'ubuntu-software-center.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'chromium-browser.desktop', 'arduino.desktop']"
 sudo service lightdm restart
 SCRIPT
 
