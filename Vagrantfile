@@ -1,6 +1,11 @@
 # vi: set ft=ruby :
 
 $script = <<SCRIPT
+# switch Ubuntu download mirror to German server
+sudo sed -i 's,http://us.archive.ubuntu.com/ubuntu/,http://ftp.fau.de/ubuntu/,' /etc/apt/sources.list
+sudo sed -i 's,http://security.ubuntu.com/ubuntu,http://ftp.fau.de/ubuntu,' /etc/apt/sources.list
+sudo apt-get update -y
+
 # switch to German keyboard layout
 sudo sed -i 's/"us"/"de"/g' /etc/default/keyboard
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y console-common
@@ -11,7 +16,6 @@ echo "Europe/Berlin" | sudo tee /etc/timezone
 sudo dpkg-reconfigure -f noninteractive tzdata
 
 # install Ubuntu desktop
-sudo apt-get update -y
 sudo apt-get install -y --no-install-recommends ubuntu-desktop
 sudo apt-get install -y gnome-panel
 sudo apt-get install -y unity-lens-applications
@@ -25,7 +29,8 @@ sudo apt-get install -y arduino arduino-core
 sudo adduser vagrant dialout
 
 # install development: 
-sudo apt-get install -y vim git
+sudo apt-get install -y git
+sudo apt-get install -y vim vim-gnome
 
 # start desktop
 echo "autologin-user=vagrant" | sudo tee -a /etc/lightdm/lightdm.conf
