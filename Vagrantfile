@@ -31,6 +31,7 @@ sudo apt-get install -y vim git
 echo "autologin-user=vagrant" | sudo tee -a /etc/lightdm/lightdm.conf
 sudo service lightdm restart
 sleep 15
+sudo /etc/init.d/vboxadd-x11 setup
 DISPLAY=:0.0 gsettings set com.canonical.Unity.Launcher favorites "['nautilus-home.desktop', 'ubuntu-software-center.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'chromium-browser.desktop', 'arduino.desktop']"
 sudo service lightdm restart
 SCRIPT
@@ -51,8 +52,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Use VBoxManage to customize the VM. For example to change memory:
     vb.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "1"]
     vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
-    vb.customize ["modifyvm", :id, "--usb", "on", "--usbehci", "on"]
-    vb.customize ["usbfilter", "add", "1", "--target", :id, "--vendorid", "0x1781", "--productid", "0x0C9F", "--name", "adafruittrinket"]
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+#    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+#    vb.customize ["usbfilter", "add", "1", "--target", :id, "--vendorid", "0x1781", "--productid", "0x0C9F", "--name", "adafruittrinket"]
   end
 
 end
